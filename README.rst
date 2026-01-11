@@ -2,6 +2,8 @@
 rst2revealjs
 ============
 
+.. important:: This is experimental project!!
+
 Simple convert from docutils AST to Reveal.js presentation.
 
 Overview
@@ -47,7 +49,7 @@ This provides some features to realize overview.
 Motivation
 ==========
 
-This is ported from core features of sphinx-revealjs.
+This is re-implement from core features of sphinx-revealjs.
 Because I want to write Reveal.js presentation on Web front-end using Pyodide. [#]_
 
 As first goal, I will provide playground website to convert from reStructuredText to presentation using this.
