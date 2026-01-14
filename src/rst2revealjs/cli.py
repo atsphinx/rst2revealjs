@@ -6,4 +6,9 @@ from .writer import RevealjsWriter
 
 
 def main():
-    publish_cmdline(writer=RevealjsWriter())
+    publish_cmdline(
+        writer=RevealjsWriter(),
+        settings_overrides={
+            "doctitle_xform": False,
+        },
+    )

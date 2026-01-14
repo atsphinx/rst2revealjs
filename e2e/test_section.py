@@ -13,6 +13,8 @@ Presentation Title
 Section title 1
 ===============
 
+Description of section.
+
 Section 1-1
 -----------
 
@@ -40,7 +42,12 @@ def save_html(content: str, suffix: str):
 
 
 def test_it():
-    doctree = publish_doctree(source=SOURCE.strip())
+    doctree = publish_doctree(
+        source=SOURCE.strip(),
+        settings_overrides={
+            "doctitle_xform": False,
+        },
+    )
     save_pseudoxml(doctree, "test_it")
     out = publish_from_doctree(doctree, writer=RevealjsWriter())
     out = out.decode().strip()
