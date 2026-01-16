@@ -1,1 +1,5 @@
+%(head_prefix)s
+%(head)s
+%(body_prefix)s
 %(body)s
+%(body_suffix)s
