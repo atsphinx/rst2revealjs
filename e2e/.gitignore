@@ -1,0 +1,3 @@
+# Output of generated HTML and PseudoXML for debug
+*.html
+*.pxml

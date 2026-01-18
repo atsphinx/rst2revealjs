@@ -11,6 +11,9 @@ dependencies = [
     "docutils>=0.21.2",
 ]
 
+[project.scripts]
+rst2revealjs = "rst2revealjs.cli:main"
+
 [build-system]
 requires = ["uv_build>=0.9.17,<0.10.0"]
 build-backend = "uv_build"
@@ -23,6 +26,8 @@ dev = [
     { include-group = "test" },
 ]
 test = [
+    "beautifulsoup4>=4.14.3",
+    "lxml>=6.0.2",
     "pytest>=9.0.2",
 ]
 
