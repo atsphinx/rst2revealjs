@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import textwrap
 from pathlib import Path
 
 from docutils import frontend, nodes
@@ -16,18 +17,35 @@ class RevealjsTranslator(base_writer.HTMLTranslator):
     when source is simple content.
     """
 
+    documenttag_args = {"tagname": "main", "class": "reveal"}
+
     def __init__(self, document: nodes.document) -> None:
         super().__init__(document)
         self.initial_header_level = 1
+        self.stylesheet = [
+            self.stylesheet_link
+            % "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.min.css",
+            self.stylesheet_link
+            % "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/theme/black.min.css",
+        ]
+        self.reveal = textwrap.dedent(
+            """
+        <script type="module">
+        import Reveal from "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.esm.min.js";
+
+        let deck = new Reveal();
+        deck.initialize();
+        </script>
+        """.strip()
+        )
 
     def visit_document(self, node: nodes.document):
         super().visit_document(node)
-        self.body.append(self.starttag(node, "div", CLASS="reveal"))
         self.body.append(self.starttag(node, "div", CLASS="slides"))
 
     def depart_document(self, node: nodes.document):
         self.body.append("</div>\n")
-        self.body.append("</div>\n")
+        self.body.append(self.reveal)
         super().depart_document(node)
 
     def visit_section(self, node: nodes.section):
