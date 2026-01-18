@@ -1,5 +1,6 @@
 import { loadPyodide, version as pyodideVersion } from "pyodide";
 import Alpine from "alpinejs";
+import "bulma/css/bulma.css";
 
 const pyodide = await loadPyodide({
   indexURL: `https://cdn.jsdelivr.net/pyodide/v${pyodideVersion}/full/`,

@@ -6,12 +6,27 @@
     <title>Playground for rst2revealjs</title>
   </head>
   <body>
-    <main x-data="{ source: '', output: '', options: {}, rst2revealjs: rst2revealjs }">
-      <div id="source">
-        <textarea rows="10" cols="50" x-model="source" x-on:change="output = await rst2revealjs(source);"></textarea>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <strong>
+          <a class="navbar-item">
+            Playground for rst2revealjs
+          </a>
+        </strong>
       </div>
-      <div id="output">
-        <iframe x-bind:srcdoc="output"></iframe>
+    </nav>
+    <main x-data="{ source: '', output: '', options: {}, rst2revealjs: rst2revealjs }" style="margin-top: 60px;">
+      <div class="container">
+        <div class="grid">
+          <div id="source" class="cell">
+            <h2 class="subtitle">Source</h2>
+            <textarea class="textarea" style="height: 100vh; font-family: monospace;" x-model="source" x-on:change="output = await rst2revealjs(source);"></textarea>
+          </div>
+          <div id="output" class="cell">
+            <h2 class="subtitle">Output</h2>
+            <iframe x-bind:srcdoc="output" style="height:100vh - 80px;"></iframe>
+          </div>
+        </div>
       </div>
     </main>
     <script type="module" src="/src/main.ts"></script>
