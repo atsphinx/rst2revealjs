@@ -1,5 +1,6 @@
-import { loadPyodide, version as pyodideVersion } from "pyodide";
 import Alpine from "alpinejs";
+import { loadPyodide, version as pyodideVersion } from "pyodide";
+import { createEditorView } from "./editor";
 import "./style.css";
 
 const pyodide = await loadPyodide({
@@ -11,7 +12,7 @@ window.Alpine = Alpine;
 // Prepare docutils writer
 await pyodide.loadPackage("docutils");
 
-window.rst2revealjs = async (source: string): Promise<string> => {
+const rst2revealjs = async (source: string): Promise<string> => {
   await pyodide.runPython(`
     from docutils.core import publish_string
 
@@ -22,5 +23,16 @@ window.rst2revealjs = async (source: string): Promise<string> => {
   const publishRevealjs = pyodide.globals.get("publish_revealjs");
   return publishRevealjs(source);
 };
+
+Alpine.data("playground", () => ({
+  editor: null,
+  published: "",
+  init() {
+    this.editor = createEditorView(this.$refs.editor, async (code) => {
+      const html = await rst2revealjs(code);
+      this.published = html;
+    });
+  },
+}));
 
 Alpine.start();
