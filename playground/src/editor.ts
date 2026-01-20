@@ -5,6 +5,7 @@ import shiki from "codemirror-shiki";
 import { createHighlighterCore } from "shiki/core";
 import { createOnigurumaEngine } from "shiki/engine/oniguruma";
 import shikiWasm from "shiki/wasm";
+import DEFAULT_SOURCE from "./default-source.rst?raw";
 
 const fixedHeightEditor = EditorView.theme({
   "&": {
@@ -24,6 +25,7 @@ export function createEditorView(
   onUpdate: (code: string) => void | Promise<void>,
 ): EditorView {
   return new EditorView({
+    doc: DEFAULT_SOURCE,
     extensions: [
       basicSetup,
       fixedHeightEditor,
