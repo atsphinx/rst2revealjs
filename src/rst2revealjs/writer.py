@@ -29,10 +29,14 @@ class RevealjsTranslator(base_writer.HTMLTranslator):
 
     def __init__(self, document: nodes.document) -> None:
         super().__init__(document)
-        self.initial_header_level = 1
         self.revealjs: RevealjsEngine = self.document["revealjs"]
         self.stylesheet = self.revealjs.build_stylesheet()
         self.reveal = self.revealjs.build_script()
+
+    def visit_section(self, node: nodes.section):
+        if "revealjs_section_level" in node:
+            self.section_level = node["revealjs_section_level"]
+        super().visit_section(node)
 
     def visit_document(self, node: nodes.document):
         super().visit_document(node)
@@ -42,29 +46,6 @@ class RevealjsTranslator(base_writer.HTMLTranslator):
         self.body.append("</div>\n")
         self.body.append(self.reveal)
         super().depart_document(node)
-
-    def visit_section(self, node: nodes.section):
-        if self.section_level == 0:
-            # Wen it visit root of section,
-            # it appends ``<section>`` element to render vertical section.
-            self.body.append("<section>")
-        elif self.section_level == 1:
-            # Wen it visit first sub-section,
-            # it closes first vertical section and creates vertical section.
-            self.body.append("</section>")
-            self.body.append("</section>")
-            self.body.append("<section>")
-        elif self.section_level == 2:
-            # Wen it visit content of sub-section,
-            # it closes previous section.
-            first = next(node.parent.findall(nodes.section, include_self=False))
-            if first == node:
-                self.body.append("</section>")
-        super().visit_section(node)
-
-    def depart_section(self, node: nodes.section):
-        if self.section_level > 1:
-            super().depart_section(node)
 
 
 class RevealjsWriter(base_writer.Writer):
@@ -101,6 +82,10 @@ class RevealjsWriter(base_writer.Writer):
     def __init__(self):
         super().__init__()
         self.translator_class = RevealjsTranslator
+
+    def write(self, document, destination):
+        document.settings.initial_header_level = 0  # To force setting
+        return super().write(document, destination)
 
     def translate(self) -> None:
         assert self.document

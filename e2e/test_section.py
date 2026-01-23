@@ -3,6 +3,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from docutils.core import publish_doctree, publish_from_doctree
 
+from rst2revealjs.reader import RevealjsReader
 from rst2revealjs.writer import RevealjsWriter
 
 SOURCE = """
@@ -42,12 +43,7 @@ def save_html(content: str, suffix: str):
 
 
 def test_it():
-    doctree = publish_doctree(
-        source=SOURCE.strip(),
-        settings_overrides={
-            "doctitle_xform": False,
-        },
-    )
+    doctree = publish_doctree(source=SOURCE.strip(), reader=RevealjsReader())
     save_pseudoxml(doctree, "test_it")
     out = publish_from_doctree(doctree, writer=RevealjsWriter())
     out = out.decode().strip()

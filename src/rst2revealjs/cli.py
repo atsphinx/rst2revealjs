@@ -2,13 +2,9 @@
 
 from docutils.core import publish_cmdline
 
+from .reader import RevealjsReader
 from .writer import RevealjsWriter
 
 
 def main():
-    publish_cmdline(
-        writer=RevealjsWriter(),
-        settings_overrides={
-            "doctitle_xform": False,
-        },
-    )
+    publish_cmdline(reader=RevealjsReader(), writer=RevealjsWriter())
