@@ -6,14 +6,15 @@ main {
   margin-top: var(--navbar-height);
   div.grid {
     div.cell {
-      textarea {
+      div.editor {
         font-family: monospace;
         width: 100%;
         height: 100vh;
+        max-height: 100vh;
       }
       iframe {
         width: 100%;
-        min-height: calc(100vh - var(--navbar-height) * 1.5);
+        min-height: 50dvh;
       }
     }
   }

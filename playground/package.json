@@ -15,6 +15,9 @@
   "dependencies": {
     "alpinejs": "^3.15.4",
     "bulma": "^1.0.4",
-    "pyodide": "^0.29.1"
+    "codemirror": "^6.0.2",
+    "codemirror-shiki": "^0.3.0",
+    "pyodide": "^0.29.1",
+    "shiki": "^3.21.0"
   }
 }

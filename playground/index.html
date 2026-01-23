@@ -15,16 +15,16 @@
         </strong>
       </div>
     </nav>
-    <main x-data="{ source: '', output: '', options: {}, rst2revealjs: rst2revealjs }">
+    <main x-data="playground">
       <div class="container">
         <div class="grid">
           <div id="source" class="cell">
             <h2 class="subtitle">Source</h2>
-            <textarea class="textarea" x-model="source" x-on:input="output = await rst2revealjs(source);"></textarea>
+            <div x-ref="editor"></div>
           </div>
           <div id="output" class="cell">
             <h2 class="subtitle">Output</h2>
-            <iframe x-bind:srcdoc="output"></iframe>
+            <iframe x-bind:srcdoc="published"></iframe>
           </div>
         </div>
       </div>
