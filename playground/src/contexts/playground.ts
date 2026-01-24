@@ -1,5 +1,5 @@
+import type { EditorView } from "@codemirror/view";
 import type { AlpineComponent } from "alpinejs";
-import { EditorView } from "@codemirror/view";
 import { createEditorView } from "../editor";
 import { publishRevealjs } from "../rst2revealjs";
 

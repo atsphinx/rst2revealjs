@@ -1,6 +1,6 @@
 import langRst from "@shikijs/langs/rst";
 import themeGithubLight from "@shikijs/themes/github-light";
-import { EditorView, basicSetup } from "codemirror";
+import { basicSetup, EditorView } from "codemirror";
 import shiki from "codemirror-shiki";
 import { createHighlighterCore } from "shiki/core";
 import { createOnigurumaEngine } from "shiki/engine/oniguruma";

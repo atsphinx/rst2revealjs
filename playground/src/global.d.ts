@@ -6,5 +6,3 @@ declare global {
     rst2revealjs: (source: string) => Promise<string>;
   }
 }
-
-export {};
