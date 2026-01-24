@@ -6,6 +6,8 @@ tasks:
         cmds:
             - 'uv sync --frozen --all-extras'
             - 'lefthook install'
+            - 'bun --cwd=playground install'
+            - 'uv build --out-dir=playground/public'
     release-*:
         desc: 'Run release process'
         vars:
