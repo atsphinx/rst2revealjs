@@ -4,20 +4,19 @@ import { createEditorView } from "../editor";
 import { publishRevealjs } from "../rst2revealjs";
 
 type Data = {
-  editor: EditorView | null;
+  sourceEditor: EditorView | null;
   published: string;
 };
 
 export default (): AlpineComponent<Data> => ({
-  editor: null,
+  sourceEditor: null,
   published: "",
   init() {
-    const editor = createEditorView(async (code) => {
+    const sourceEditor = createEditorView("rst", undefined, async (code) => {
       const html = publishRevealjs(code);
       this.published = html;
     });
-    this.published = publishRevealjs(editor.state.doc.toString());
-    this.editor = editor;
-    // this.$refs.editor.appendChild(editor.dom);
+    this.published = publishRevealjs(sourceEditor.state.doc.toString());
+    this.sourceEditor = sourceEditor;
   },
 });

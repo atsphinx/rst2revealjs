@@ -1,4 +1,5 @@
 import langRst from "@shikijs/langs/rst";
+import langToml from "@shikijs/langs/toml";
 import themeGithubLight from "@shikijs/themes/github-light";
 import { basicSetup, EditorView } from "codemirror";
 import shiki from "codemirror-shiki";
@@ -14,21 +15,39 @@ const fixedHeightEditor = EditorView.theme({
   ".cm-scroller": { overflow: "auto" },
 });
 
-const highlighter = createHighlighterCore({
-  langs: [langRst],
-  themes: [themeGithubLight],
-  engine: createOnigurumaEngine(shikiWasm),
-});
+const highlighters = new Map();
+highlighters.set(
+  "rst",
+  createHighlighterCore({
+    langs: [langRst],
+    themes: [themeGithubLight],
+    engine: createOnigurumaEngine(shikiWasm),
+  }),
+);
+highlighters.set(
+  "toml",
+  createHighlighterCore({
+    langs: [langToml],
+    themes: [themeGithubLight],
+    engine: createOnigurumaEngine(shikiWasm),
+  }),
+);
 
 export function createEditorView(
-  onUpdate: (code: string) => void | Promise<void>,
+  language: string,
+  doc: string = DEFAULT_SOURCE,
+  onUpdate: (code: string) => void | Promise<void> = () => {},
 ): EditorView {
   return new EditorView({
-    doc: DEFAULT_SOURCE,
+    doc,
     extensions: [
       basicSetup,
       fixedHeightEditor,
-      shiki({ highlighter, language: "rst", theme: "github-light" }),
+      shiki({
+        highlighter: highlighters.get(language),
+        language,
+        theme: "github-light",
+      }),
       EditorView.updateListener.of((update) => {
         if (update.docChanged) {
           onUpdate(update.state.doc.toString());
