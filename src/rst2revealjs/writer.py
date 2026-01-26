@@ -25,21 +25,14 @@ class RevealjsTranslator(base_writer.HTMLTranslator):
             self.section_level = node["revealjs_section_level"]
         super().visit_section(node)
 
-    def visit_document(self, node: nodes.document):
-        super().visit_document(node)
+    def visit_revealjs_deck(self, node: revealjs_deck):
         self.body.append(self.starttag(node, "div", CLASS="slides"))
 
-    def depart_document(self, node: nodes.document):
-        self.body.append("</div>\n")
-        super().depart_document(node)
-
-    def visit_revealjs_deck(self, node: revealjs_deck):
+    def depart_revealjs_deck(self, node: revealjs_deck):
         engine = node.attributes["engine"]
         self.stylesheet = engine.build_stylesheet()
+        self.body.append("</div>")
         self.body.append(engine.build_script())
-
-    def depart_revealjs_deck(self, node: revealjs_deck):
-        pass
 
 
 class RevealjsWriter(base_writer.Writer):

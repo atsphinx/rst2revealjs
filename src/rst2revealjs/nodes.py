@@ -7,7 +7,7 @@ from docutils import nodes
 from .engine import RevealjsEngine
 
 
-class revealjs_deck(nodes.Element):
+class revealjs_deck(nodes.General, nodes.Element):
     class Attributes(TypedDict):
         engine: RevealjsEngine
 
