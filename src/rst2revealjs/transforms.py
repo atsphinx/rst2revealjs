@@ -1,6 +1,25 @@
 from docutils import nodes
 from docutils.transforms import Transform
 
+from .engine import RevealjsEngine
+from .nodes import revealjs_deck
+
+
+class RevealjsEngineTransform(Transform):
+    """docutils transform to bind Reveal.js engine object."""
+
+    default_priority = 350
+
+    def apply(self, **kwargs):
+        settings = self.document.settings
+        data = {
+            "version": settings.revealjs_version,
+            "theme": settings.revealjs_theme,
+        }
+        engine = RevealjsEngine.from_cdn(**data)
+        node = revealjs_deck(engine=engine)
+        self.document.children.append(node)
+
 
 class RevealjsSectionizeTransform(Transform):
     """docutils transform to Reveal.js style section structure."""

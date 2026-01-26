@@ -6,6 +6,8 @@ from dataclasses import asdict, dataclass
 
 from jinja2 import Template
 
+DEFAULT_VERSION = "5.2.1"
+
 DEFAULT_INIT_SCRIPT = """
 {% for name, url in imports|items %}
 import {{name}} from "{{url}}";
