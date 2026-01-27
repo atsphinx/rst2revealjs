@@ -25,6 +25,57 @@ class RevealjsTranslator(base_writer.HTMLTranslator):
             self.section_level = node["revealjs_section_level"]
         super().visit_section(node)
 
+    def visit_literal_block(self, node: nodes.Element):
+        """Begin ``literal_block`` .
+
+        Override base method to open ``pre`` and ``code`` tags simply.
+
+        :ref: https://github.com/attakei/sphinx-revealjs/blob/master/sphinx_revealjs/writers.py
+        """
+
+        def _starttag(tagname: str, suffix: str = "\n", **attributes):
+            """Build start tag to avoide override classes."""
+            text = [f"<{tagname}"]
+            for key, value in attributes.items():
+                if value is None:
+                    text.append(key.lower())
+                else:
+                    text.append(f'{key}="{value}"')
+            text[-1] += f">{suffix}"
+            return " ".join(text)
+
+        # Detect language
+        if len(node["classes"]) < 2:
+            return super().visit_literal_block(node)
+        lang = node["classes"][1]
+        # Build <pre> tag
+        attrs_pre = {}
+        if "data-id" in node:
+            attrs_pre["data-id"] = node["data-id"]
+        elif isinstance(node.parent, nodes.section) and len(node.parent["ids"]):
+            attrs_pre["data-id"] = node.parent["ids"][0]
+        self.body.append(_starttag("pre", **attrs_pre))
+        # Build <code> tag
+        attrs_code = {
+            "class": f"language-{lang}",
+            "data-trim": None,
+            "data-noescape": None,
+        }
+        if "data-line-numbers" in node:
+            attrs_code["data-line-numbers"] = node["data-line-numbers"]
+        elif "linenos" in node:
+            attrs_code["data-line-numbers"] = "data-line-numbers"
+        if "data-ln-start-from" in node:
+            attrs_code["data-ln-start-from"] = node["data-ln-start-from"]
+            if "data-line-numbers" not in attrs_code:
+                attrs_code["data-line-numbers"] = "data-line-numbers"
+        self.body.append(_starttag("code", suffix="", **attrs_code))
+        # Write code content and close tags.
+        self.body.append(node.astext())
+        self.body.append("</code></pre>\n")
+        # It doesn't walk children, because code content has already been appended.
+        raise nodes.SkipNode
+
     def visit_revealjs_deck(self, node: revealjs_deck):
         self.body.append(self.starttag(node, "div", CLASS="slides"))
 
