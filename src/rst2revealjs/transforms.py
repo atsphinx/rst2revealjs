@@ -1,6 +1,25 @@
 from docutils import nodes
 from docutils.transforms import Transform
 
+from .engine import RevealjsEngine
+from .nodes import revealjs_deck
+
+
+class RevealjsEngineTransform(Transform):
+    """docutils transform to bind Reveal.js engine object."""
+
+    default_priority = 250
+
+    def apply(self, **kwargs):
+        settings = self.document.settings
+        data = {
+            "version": settings.revealjs_version,
+            "theme": settings.revealjs_theme,
+        }
+        engine = RevealjsEngine.from_cdn(**data)
+        node = revealjs_deck(engine=engine)
+        self.document.append(node)
+
 
 class RevealjsSectionizeTransform(Transform):
     """docutils transform to Reveal.js style section structure."""
@@ -8,6 +27,12 @@ class RevealjsSectionizeTransform(Transform):
     default_priority = 350
 
     def apply(self, **kwargs):
+        decks = list(self.document.findall(revealjs_deck))
+        if not decks or len(decks) > 1:
+            raise ValueError("Required only one <revealjs_deck> element to apply it.")
+        deck = decks[0]
+        deck.parent.remove(deck)
+
         def _rebuild(root: nodes.section):
             new_root = nodes.section()
             sub_sections = []
@@ -33,8 +58,7 @@ class RevealjsSectionizeTransform(Transform):
                 node["revealjs_section_level"] = 2
                 sections[0].remove(node)
                 sections.append(node)
-        new_sections = []
         for vertical in sections:
-            new_sections.append(_rebuild(vertical))
+            deck.append(_rebuild(vertical))
 
-        self.document.children = new_sections + self.document.children
+        self.document.children = [deck] + self.document.children
