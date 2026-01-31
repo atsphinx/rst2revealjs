@@ -5,9 +5,12 @@ const pyodide = await loadPyodide({
   indexURL: `https://cdn.jsdelivr.net/pyodide/v${pyodideVersion}/full/`,
 });
 
-await pyodide.loadPackage("docutils");
-await pyodide.loadPackage("pygments");
-await pyodide.loadPackage("jinja2");
+await pyodide.loadPackage("micropip");
+await pyodide.runPythonAsync(`
+  import micropip
+  
+  await micropip.install(["docutils", "jinja2"])
+`);
 // TODO: This is temporary path in development. Change it after release.
 await pyodide.loadPackage("./rst2revealjs-0.0.0-py3-none-any.whl");
 await pyodide.runPython(mainPy);
