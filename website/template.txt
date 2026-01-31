@@ -20,7 +20,7 @@
           <a class="navbar-item">
             Home
           </a>
-          <a class="navbar-item" href="./playground">
+          <a class="navbar-item" href="./playground.html">
             Playground
           </a>
         </div>
