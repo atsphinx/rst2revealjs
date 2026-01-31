@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rst2revealjs | Home</title>
+    <link rel="stylesheet" href="/src/style.css">
+  </head>
+  <body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a href="./" class="navbar-item">
+          <strong>
+            rst2revealjs
+          </strong>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+          <a class="navbar-item" href="./playground.html">
+            Playground
+          </a>
+        </div>
+        <div class="navbar-end">
+          <a class="navbar-item" href="https://github.com/atsphinx/rst2revealjs" target="_blank">
+            <span class="icon">
+              <i class="fab fa-2x fa-github"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="section">
+        <div class="container">
+          <div class="content">
+            %(body)s
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="https://kit.fontawesome.com/9da28e60fd.js" crossorigin="anonymous"></script>
+  </body>
+</html>

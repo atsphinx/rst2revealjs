@@ -59,6 +59,6 @@ License
 
 Apache-2.0 license. Please see LICENSE on repository.
 
-.. ruburic::
+.. rubric:: Footnotes
 
 .. [#] docutils is registered on Pyodided built-in packages, but Sphinx is not registered.

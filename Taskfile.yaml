@@ -1,5 +1,10 @@
 version: '3'
 
+includes:
+    website:
+        taskfile: './website'
+        dir: './website'
+
 tasks:
     setup-dev:
         desc: 'Setup workspace'
@@ -7,11 +12,7 @@ tasks:
             - 'uv sync --frozen --all-extras'
             - 'lefthook install'
             - 'bun --cwd=playground install'
-            - 'uv build --out-dir=playground/public'
-    playground:
-        desc: 'Start playground on localhost'
-        cmds:
-            - 'bun --cwd=playground dev'
+            - 'uv build --out-dir=website/public'
     release-*:
         desc: 'Run release process'
         vars:

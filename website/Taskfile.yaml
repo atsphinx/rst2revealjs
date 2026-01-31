@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  pre:
+    desc: 'Make base html from reStructuredText contents.'
+    cmds:
+      - >
+          uv run rst2html5
+          --template=./template.txt
+          ../README.rst
+          ./index.html
+  dev:
+    desc: 'Start devserver of website.'
+    cmds:
+      - task: 'pre'
+      - 'bun run dev'
+  build:
+    desc: 'Build pages for deployment'
+    cmds:
+      - task: 'pre'
+      - 'bun run build'
