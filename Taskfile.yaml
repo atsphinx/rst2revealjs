@@ -1,22 +1,22 @@
 version: '3'
 
 includes:
-    website:
-        taskfile: './website'
-        dir: './website'
+  website:
+    taskfile: './website'
+    dir: './website'
 
 tasks:
-    setup-dev:
-        desc: 'Setup workspace'
-        cmds:
-            - 'uv sync --frozen --all-extras'
-            - 'lefthook install'
-            - 'bun --cwd=playground install'
-            - 'uv build --out-dir=website/public'
-    release-*:
-        desc: 'Run release process'
-        vars:
-            LEVEL: '{{index .MATCH 0}}'
-        cmds:
-            - 'age {{.LEVEL}}'
-            - 'uv sync --all-extras' # To write out as lock-file
+  setup-dev:
+    desc: 'Setup workspace'
+    cmds:
+      - 'uv sync --frozen --all-extras'
+      - 'lefthook install'
+      - 'bun --cwd=website install'
+      - 'uv build --out-dir=website/public'
+  release-*:
+    desc: 'Run release process'
+    vars:
+      LEVEL: '{{index .MATCH 0}}'
+    cmds:
+      - 'age {{.LEVEL}}'
+      - 'uv sync --all-extras' # To write out as lock-file
