@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rst2revealjs</title>
+  </head>
+  <body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <strong>
+          <a class="navbar-item">
+            rst2revealjs
+          </a>
+        </strong>
+      </div>
+    </nav>
+    <main>
+      <div class="section">
+        <div class="content">
+          %(body)s
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/static.ts"></script>
+  </body>
+</html>
