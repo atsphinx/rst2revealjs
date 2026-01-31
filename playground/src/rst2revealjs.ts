@@ -12,8 +12,8 @@ await pyodide.loadPackage("jinja2");
 await pyodide.loadPackage("/rst2revealjs-0.0.0-py3-none-any.whl");
 await pyodide.runPython(mainPy);
 
-function publishRevealjs(source: string): string {
-  return pyodide.globals.get("publish_revealjs")(source);
+function publishRevealjs(source: string, settings: string): string {
+  return pyodide.globals.get("publish_revealjs")(source, settings);
 }
 
 export { publishRevealjs };

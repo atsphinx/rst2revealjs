@@ -1,0 +1,3 @@
+# Settings to build using rst2revealjs.
+[settings]
+theme = 'black'
