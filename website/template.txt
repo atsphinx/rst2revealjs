@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>rst2revealjs | Home</title>
+    <link rel="stylesheet" href="/src/style.css">
   </head>
   <body>
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
@@ -32,6 +33,5 @@
         </div>
       </div>
     </main>
-    <script type="module" src="/src/static.ts"></script>
   </body>
 </html>
