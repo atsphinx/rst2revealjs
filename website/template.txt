@@ -39,7 +39,7 @@
           <div class="content">
             %(body)s
           </div>
-        </div
+        </div>
       </div>
     </main>
     <script src="https://kit.fontawesome.com/9da28e60fd.js" crossorigin="anonymous"></script>
