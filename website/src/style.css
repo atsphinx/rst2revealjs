@@ -1,6 +1,10 @@
 @import "bulma/css/bulma.css";
+@import "bulmaswatch/sandstone/bulmaswatch.min.css";
 :root {
   --navbar-height: 60px;
+}
+aside.admonition {
+  display: none;
 }
 main {
   margin-top: var(--navbar-height);

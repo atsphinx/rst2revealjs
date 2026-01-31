@@ -24,14 +24,24 @@
             Playground
           </a>
         </div>
+        <div class="navbar-end">
+          <a class="navbar-item" href="https://github.com/atsphinx/rst2revealjs" target="_blank">
+            <span class="icon">
+              <i class="fab fa-2x fa-github"></i>
+            </span>
+          </a>
+        </div>
       </div>
     </nav>
     <main>
       <div class="section">
-        <div class="content">
-          %(body)s
-        </div>
+        <div class="container">
+          <div class="content">
+            %(body)s
+          </div>
+        </div
       </div>
     </main>
+    <script src="https://kit.fontawesome.com/9da28e60fd.js" crossorigin="anonymous"></script>
   </body>
 </html>
