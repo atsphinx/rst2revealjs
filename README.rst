@@ -2,9 +2,7 @@
 rst2revealjs
 ============
 
-.. important:: This is experimental project!!
-
-Simple convert from docutils AST to Reveal.js presentation.
+Simple converter from docutils AST to Reveal.js presentation.
 
 Overview
 ========
